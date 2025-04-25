@@ -1,5 +1,7 @@
 package com.example.spring_rest.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class JobPost {
     public int getPostId() {
         return postId;
@@ -46,6 +49,7 @@ public class JobPost {
         this.postTechStack = postTechStack;
     }
 
+    @Id
     private int postId;
     private String postProfile;
     private String postDesc;
