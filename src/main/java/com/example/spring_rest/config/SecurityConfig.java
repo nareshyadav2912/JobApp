@@ -15,12 +15,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-
+    @Autowired
+    private Jwtfilter jwtfilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -31,24 +33,10 @@ public class SecurityConfig {
         //httpSecurity.formLogin(Customizer.withDefaults());
         httpSecurity.httpBasic(Customizer.withDefaults());
         httpSecurity.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        //httpSecurity.addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//        UserDetails user1= User.withDefaultPasswordEncoder()
-//                                        .username("naresh")
-//                                        .password("1234")
-//                                        .roles("USER")
-//                                        .build();
-//        UserDetails user2= User.withDefaultPasswordEncoder()
-//                .username("suresh")
-//                .password("1234")
-//                .roles("ADMIN")
-//                .build();
-//        return new InMemoryUserDetailsManager(user1,user2);
-//    }
 
     @Autowired
     private UserDetailsService userDetailsService;
