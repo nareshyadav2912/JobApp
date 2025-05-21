@@ -1,0 +1,27 @@
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    networks:
+      - j-network
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_URL: jdbc:postgresql://my-db.ckneisgoinwi.us-east-1.rds.amazonaws.com:5432/postgres
+      POSTGRES_USER: naresh
+      POSTGRES_PASSWORD: naresh2912
+      POSTGRES_DB: postgres
+    ports:
+      - "5433:5432"
+    networks:
+      - j-network
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+networks:
+  j-network:
+    driver: bridge
+volumes:
+  postgres-data:
+
