@@ -13,6 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class JobPost {
+
+
     public int getPostId() {
         return postId;
     }
